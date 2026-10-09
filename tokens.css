@@ -1,0 +1,50 @@
+/* Andrea Hvattum. Retning A «Jakkegrønn» (anbefalt), merkevarehåndbok v0.1, oktober 2026. */
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=Schibsted+Grotesk:wght@500;600;700&display=swap");
+
+:root {
+  /* Farger */
+  --ah-lys: #FAFAF8;          /* hovedbakgrunn */
+  --ah-hvit: #FFFFFF;         /* skjema, kort */
+  --ah-stein: #EDEDE8;        /* rolige seksjoner, bildeplassholdere */
+  --ah-mose-lys: #E3EEE7;     /* små flater, valgt tilstand */
+  --ah-gronn: #1F5A47;        /* knapp, lenker, mørk avslutning */
+  --ah-gronn-hover: #174636;
+  --ah-gronn-lys: #9FC9B4;    /* tekst og detaljer på mørk grønn */
+  --ah-skifer: #5E5F5C;       /* sekundærtekst */
+  --ah-blekk: #17201C;        /* tekst */
+  --ah-linje: #DCDCD5;        /* skillelinjer */
+
+  /* Roller */
+  --ah-bg: var(--ah-lys);
+  --ah-surface: var(--ah-hvit);
+  --ah-text: var(--ah-blekk);
+  --ah-text-muted: var(--ah-skifer);
+  --ah-accent: var(--ah-gronn);
+  --ah-line: var(--ah-linje);
+  --ah-focus: var(--ah-gronn);
+
+  /* Skrift */
+  --ah-font-display: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ah-font-body: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Skala */
+  --ah-size-display: clamp(2.25rem, 1.6rem + 2.9vw, 4rem);
+  --ah-size-h2: clamp(1.75rem, 1.4rem + 1.4vw, 2.625rem);
+  --ah-size-h3: clamp(1.25rem, 1.15rem + .4vw, 1.5rem);
+  --ah-size-lead: clamp(1.125rem, 1.05rem + .4vw, 1.375rem);
+  --ah-size-body: 1.0625rem;
+  --ah-size-small: .9375rem;
+  --ah-size-label: .8125rem;
+  --ah-leading-display: 1.05;
+  --ah-leading-heading: 1.15;
+  --ah-leading-body: 1.6;
+  --ah-tracking-display: -.025em;
+
+  /* Form og rom */
+  --ah-radius: 14px;          /* bilder, skjema, flater */
+  --ah-radius-pill: 999px;    /* knapper */
+  --ah-ramme: 1240px;
+  --ah-gutter: clamp(1rem, .5rem + 2.5vw, 2.5rem);
+  --ah-seksjon: clamp(4.5rem, 3rem + 6vw, 8.5rem);
+  --ah-ease: cubic-bezier(.16, 1, .3, 1);
+}

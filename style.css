@@ -1,0 +1,337 @@
+/* Andrea Hvattum, demo runde 2. Felles stil for alle sider. Farger, skrift og skala kommer fra tokens.css (retning A).
+   Formregel i r2: bilder, flater og felt har rette hjørner; bare knapper er runde.
+   Forbilder for oppbyggingen: Snøhetta, Cultivating Leadership, Ræder&, MT Ledarskap og Cereal (se FORBILDER.md). */
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 6rem; }
+body {
+  background: var(--ah-bg); color: var(--ah-text);
+  font: 400 var(--ah-size-body)/var(--ah-leading-body) var(--ah-font-body);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+[hidden] { display: none !important; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--ah-accent); text-underline-offset: .2em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--ah-focus); outline-offset: 3px; }
+ul, ol { padding: 0; list-style: none; }
+h1, h2, h3 { font-family: var(--ah-font-display); font-weight: 600; letter-spacing: var(--ah-tracking-display); text-wrap: balance; }
+p { text-wrap: pretty; }
+
+:root {
+  --stor: clamp(2.75rem, 1.5rem + 5.2vw, 6.25rem);     /* toppsetning, Snøhetta-grepet */
+  --indeks: clamp(1.5rem, 1.05rem + 1.9vw, 2.625rem);   /* indeksrader */
+  --kaffe: #6B4630;                                      /* bare i kaffekoppen */
+}
+
+.ramme { width: 100%; max-width: var(--ah-ramme); margin-inline: auto; padding-inline: var(--ah-gutter); }
+.seksjon { padding-block: var(--ah-seksjon); }
+.seksjon--tett { padding-top: 0; }
+.h3 { font-size: var(--ah-size-h3); line-height: 1.25; letter-spacing: -.01em; }
+
+.hopp { position: absolute; left: 1rem; top: -4rem; z-index: 30; background: var(--ah-gronn); color: #fff; padding: .6rem 1rem; }
+.hopp:focus { top: 1rem; }
+
+/* ---------- knapper ---------- */
+.knapper { display: flex; flex-wrap: wrap; gap: .75rem 1rem; align-items: center; }
+.knapp {
+  display: inline-flex; align-items: center; gap: .75rem; min-height: 3rem;
+  padding: .4rem .45rem .4rem 1.4rem; border-radius: var(--ah-radius-pill);
+  font: 600 1rem/1 var(--ah-font-body); text-decoration: none; white-space: nowrap;
+  transition: background-color .3s var(--ah-ease), color .3s var(--ah-ease), transform .3s var(--ah-ease), box-shadow .3s var(--ah-ease);
+  touch-action: manipulation; cursor: pointer; border: 0;
+}
+.knapp:active { transform: scale(.98); }
+.knapp__pil { display: grid; place-items: center; flex: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: rgb(255 255 255 / .14); transition: transform .4s var(--ah-ease), background-color .3s var(--ah-ease), color .3s var(--ah-ease); }
+.knapp:hover .knapp__pil { transform: translateX(3px); }
+.knapp--primar { background: var(--ah-gronn); color: #fff; }
+.knapp--primar:hover { background: var(--ah-gronn-hover); }
+.knapp--sekundar { padding-inline: 1.4rem; color: var(--ah-text); box-shadow: inset 0 0 0 1px var(--ah-line); background: transparent; }
+.knapp--sekundar:hover { box-shadow: inset 0 0 0 1px var(--ah-text); }
+.knapp--lys { background: var(--ah-lys); color: var(--ah-gronn); }
+.knapp--lys .knapp__pil { background: var(--ah-mose-lys); }
+.knapp--lys:hover { background: #fff; }
+.knapp--liten { min-height: 2.5rem; padding: .3rem 1.1rem; font-size: .9375rem; }
+.lenke-pil { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; text-decoration: none; }
+.lenke-pil .knapp__pil { width: 1.9rem; height: 1.9rem; background: var(--ah-mose-lys); }
+.lenke-pil:hover .knapp__pil { transform: translateX(4px); }
+
+/* ---------- topp ---------- */
+.topp { position: sticky; top: 0; z-index: 20; background: rgb(250 250 248 / .9); backdrop-filter: saturate(160%) blur(12px); -webkit-backdrop-filter: saturate(160%) blur(12px); border-bottom: 1px solid transparent; transition: border-color .3s var(--ah-ease); }
+.topp.er-rullet { border-bottom-color: var(--ah-line); }
+.topp__indre { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); align-items: center; gap: 2rem; height: 4.25rem; }
+.ordmerke { display: inline-flex; align-items: center; min-height: 44px; font: 600 1.25rem/1 var(--ah-font-display); letter-spacing: -.02em; color: var(--ah-text); text-decoration: none; white-space: nowrap; justify-self: start; }
+.topp__nav { grid-column: 2; grid-row: 1; }
+.topp__nav ul { display: flex; gap: 2rem; }
+.topp__nav a { display: block; padding: .5rem 0; color: var(--ah-text); text-decoration: none; font-weight: 500; background: linear-gradient(var(--ah-gronn), var(--ah-gronn)) 0 100% / 0 1.5px no-repeat; transition: background-size .45s var(--ah-ease), color .3s var(--ah-ease); }
+.topp__nav a:hover { background-size: 100% 1.5px; }
+.topp__nav a[aria-current="page"] { color: var(--ah-gronn); background-size: 100% 1.5px; }
+.topp__handling { grid-column: 2; grid-row: 1; justify-self: end; display: flex; align-items: center; gap: .5rem; }
+.topp__meny { display: none; position: relative; width: 2.75rem; height: 2.75rem; border: 0; border-radius: 50%; background: var(--ah-stein); cursor: pointer; }
+.topp__meny span { position: absolute; left: 50%; top: 50%; width: 1.1rem; height: 1.5px; background: var(--ah-text); border-radius: 2px; transition: transform .45s var(--ah-ease); }
+.topp__meny span:first-child { transform: translate(-50%, calc(-50% - 4px)); }
+.topp__meny span:last-child { transform: translate(-50%, calc(-50% + 4px)); }
+.topp__meny[aria-expanded="true"] span:first-child { transform: translate(-50%, -50%) rotate(45deg); }
+.topp__meny[aria-expanded="true"] span:last-child { transform: translate(-50%, -50%) rotate(-45deg); }
+.mobilmeny { position: fixed; top: 100%; left: 0; right: 0; height: calc(100dvh - 4.25rem); overflow-y: auto; background: var(--ah-lys); padding: 2rem var(--ah-gutter); display: flex; flex-direction: column; justify-content: space-between; overscroll-behavior: contain; }
+.mobilmeny ul { display: grid; gap: .25rem; }
+.mobilmeny li { opacity: 0; transform: translateY(1rem); transition: opacity .5s var(--ah-ease), transform .5s var(--ah-ease); transition-delay: calc(var(--i) * 60ms); }
+.mobilmeny.er-apen li { opacity: 1; transform: none; }
+.mobilmeny nav a { display: block; padding: .5rem 0; font: 400 2.25rem/1.15 var(--ah-font-display); letter-spacing: -.03em; color: var(--ah-text); text-decoration: none; }
+.mobilmeny__bunn { display: grid; gap: 1.25rem; padding-bottom: 3rem; justify-items: start; }
+.mobilmeny__bunn p { color: var(--ah-text-muted); line-height: 1.8; }
+.mobilmeny__bunn p a { color: inherit; }
+
+/* ---------- etikett i venstrekolonne (Snøhetta) ---------- */
+.kol { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 1.5rem 2rem; }
+.kol__etikett, .baand__etikett { font: 500 var(--ah-size-small)/1.5 var(--ah-font-body); letter-spacing: 0; color: var(--ah-text-muted); padding-top: .35rem; }
+.kol__innhold { min-width: 0; }
+.kol__utsagn { font: 400 clamp(1.375rem, 1.1rem + 1.1vw, 2rem)/1.3 var(--ah-font-display); letter-spacing: -.02em; max-width: 34ch; }
+
+/* ---------- forside: topp (Snøhetta) ---------- */
+.hero { padding-top: clamp(2rem, 1rem + 4vw, 4.5rem); }
+.hero__tittel { font: 400 var(--stor)/1.02 var(--ah-font-display); letter-spacing: -.04em; max-width: 13ch; }
+.hero__rad { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem 3rem; margin-top: clamp(1.5rem, 1rem + 1.6vw, 2.5rem); padding-bottom: clamp(2rem, 1.5rem + 2vw, 3.5rem); }
+.hero__ingress { font-size: var(--ah-size-lead); color: var(--ah-text-muted); max-width: 38ch; }
+.hero__bilde img { width: 100%; aspect-ratio: 16 / 7; max-height: 78dvh; object-fit: cover; object-position: 50% 28%; background: var(--ah-stein); }
+
+/* ---------- kundelogoer: én rad som glir ---------- */
+.kunder { padding-block: clamp(2.5rem, 4vw, 3.5rem); border-bottom: 1px solid var(--ah-line); }
+.kunder__tittel { font: 500 var(--ah-size-small)/1.4 var(--ah-font-body); letter-spacing: 0; color: var(--ah-text-muted); margin-bottom: 1.75rem; }
+.kunder__vindu { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.kunder__rad { display: flex; width: max-content; align-items: center; }
+.kunder__rad li { display: grid; place-items: center; height: 3rem; padding-inline: clamp(1.25rem, 2.5vw, 2.25rem); }
+.kunder__rad img { max-height: 2.1rem; max-width: 8rem; width: auto; object-fit: contain; filter: grayscale(1) contrast(1.1); mix-blend-mode: multiply; opacity: .6; }
+@media (prefers-reduced-motion: no-preference) {
+  .kunder__rad { animation: glid 70s linear infinite; }
+  .kunder__vindu:hover .kunder__rad { animation-play-state: paused; }
+}
+.kunder.er-pauset .kunder__rad { animation-play-state: paused; }
+.kunder__styr { display: flex; justify-content: flex-end; margin-top: 1rem; }
+.kunder__pause { min-height: 44px; min-width: 44px; margin-right: -.75rem; font: 500 var(--ah-size-label)/1 var(--ah-font-body); color: var(--ah-text-muted); background: none; border: 0; padding: .5rem .75rem; cursor: pointer; text-decoration: underline; text-underline-offset: .2em; touch-action: manipulation; }
+.kunder__pause:hover { color: var(--ah-text); }
+@keyframes glid { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .kunder__vindu { -webkit-mask-image: none; mask-image: none; }
+  .kunder__rad { width: auto; max-width: var(--ah-ramme); margin-inline: auto; padding-inline: var(--ah-gutter); flex-wrap: wrap; justify-content: center; gap: 1.5rem 0; }
+  .kunder__rad li[aria-hidden="true"], .kunder__styr { display: none; }
+}
+
+/* ---------- hva står du i (MT Ledarskap) ---------- */
+.sit { border-top: 1px solid var(--ah-line); }
+.sit__rad { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .5rem 2rem; padding-block: 1.5rem; border-bottom: 1px solid var(--ah-line); color: var(--ah-text); text-decoration: none; }
+.sit__tekst { font: 400 var(--indeks)/1.15 var(--ah-font-display); letter-spacing: -.025em; transition: color .3s var(--ah-ease); }
+.sit__tj { display: inline-flex; align-items: center; gap: .75rem; font-weight: 500; color: var(--ah-text-muted); white-space: nowrap; }
+.sit__tj .knapp__pil, .indeks__rad .knapp__pil { width: 2.5rem; height: 2.5rem; background: var(--ah-mose-lys); color: var(--ah-gronn); }
+.sit__rad:hover .sit__tekst { color: var(--ah-gronn); }
+.sit__rad:hover .knapp__pil, .indeks__rad:hover .knapp__pil { background: var(--ah-gronn); color: #fff; transform: translateX(5px); }
+.sit__mer { margin-top: 1.5rem; }
+
+/* ---------- grønt bånd (Cultivating Leadership) ---------- */
+.baand { background: var(--ah-gronn); color: #fff; padding-block: clamp(4.5rem, 3rem + 7vw, 10rem); }
+.baand__etikett { color: var(--ah-gronn-lys); margin-bottom: 1.75rem; padding: 0; }
+.baand__utsagn { font: 400 clamp(1.625rem, 1.05rem + 2.5vw, 3.25rem)/1.18 var(--ah-font-display); letter-spacing: -.03em; max-width: 30ch; }
+
+/* ---------- liste som foldes ut (Ræder&) ---------- */
+.folder { border-top: 1px solid var(--ah-line); }
+.fold { border-bottom: 1px solid var(--ah-line); }
+.fold summary { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding-block: 1.5rem; cursor: pointer; list-style: none; }
+.fold summary::-webkit-details-marker { display: none; }
+.fold__tittel { font: 400 var(--indeks)/1.15 var(--ah-font-display); letter-spacing: -.025em; transition: color .3s var(--ah-ease); }
+.fold summary:hover .fold__tittel { color: var(--ah-gronn); }
+.fold__tegn { position: relative; flex: none; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--ah-mose-lys); transition: background-color .3s var(--ah-ease); }
+.fold__tegn::before, .fold__tegn::after { content: ""; position: absolute; left: 50%; top: 50%; width: .85rem; height: 1.5px; background: var(--ah-gronn); transform: translate(-50%, -50%); transition: transform .45s var(--ah-ease); }
+.fold__tegn::after { transform: translate(-50%, -50%) rotate(90deg); }
+.fold[open] .fold__tegn::after { transform: translate(-50%, -50%) rotate(0deg); }
+.fold__innhold { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem 2.5rem; padding-bottom: 2rem; }
+.fold__innhold > p { color: var(--ah-text-muted); font-size: var(--ah-size-lead); max-width: 30ch; }
+@media (prefers-reduced-motion: no-preference) {
+  .fold[open] .fold__innhold { animation: inn .6s var(--ah-ease); }
+}
+@keyframes inn { from { opacity: 0; transform: translateY(-.5rem); } }
+.punkter { display: grid; gap: .55rem; }
+.punkter li { position: relative; padding-left: 1.4rem; }
+.punkter li::before { content: ""; position: absolute; left: 0; top: .78em; width: .7rem; height: 1.5px; background: var(--ah-gronn); }
+.punkter--hake li::before { width: .55rem; height: .3rem; top: .5em; background: none; border-left: 1.5px solid var(--ah-gronn); border-bottom: 1.5px solid var(--ah-gronn); transform: rotate(-45deg); }
+.punkter--to { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem 2.5rem; font-size: var(--ah-size-lead); }
+
+/* ---------- tjenester som indeks (Snøhetta) ---------- */
+.indeks { border-top: 1px solid var(--ah-line); }
+.indeks__rad { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2rem; padding-block: 1.4rem; border-bottom: 1px solid var(--ah-line); color: var(--ah-text); text-decoration: none; }
+.indeks__navn { font: 400 var(--indeks)/1.15 var(--ah-font-display); letter-spacing: -.025em; transition: color .3s var(--ah-ease); }
+.indeks__navn span { color: #8A8B85; transition: color .3s var(--ah-ease); }
+.indeks__rad:hover .indeks__navn { color: var(--ah-gronn); }
+.indeks__rad:hover .indeks__navn span { color: var(--ah-text-muted); }
+
+/* ---------- om og sitat (Ræder&) ---------- */
+.omsitat { background: var(--ah-stein); padding-block: var(--ah-seksjon); }
+.omsitat__indre { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 6rem); align-items: stretch; }
+.omsitat__bilde img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 15%; }
+.omsitat__tekst { display: flex; flex-direction: column; justify-content: space-between; gap: 3rem; }
+.omsitat__sitat blockquote p { font: 400 clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem)/1.22 var(--ah-font-display); letter-spacing: -.025em; max-width: 26ch; }
+.omsitat__sitat figcaption { margin-top: 1.25rem; color: var(--ah-text-muted); }
+.omsitat__om { padding-top: 1.75rem; border-top: 1px solid #CFCFC7; display: grid; gap: .75rem; justify-items: start; }
+.omsitat__om p { color: var(--ah-text-muted); max-width: 46ch; }
+
+/* ---------- prosessen som én linje (Cereal) ---------- */
+.steg__linje { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 0; margin-top: 1.5rem; font: 400 clamp(2rem, 1.1rem + 3.6vw, 4.75rem)/1.1 var(--ah-font-display); letter-spacing: -.04em; }
+.steg__linje li { display: inline-flex; align-items: center; }
+.steg__linje li:not(:last-child)::after { content: ""; display: inline-block; width: clamp(1.25rem, 3vw, 3rem); height: 1.5px; margin-inline: clamp(.6rem, 1.5vw, 1.25rem); background: var(--ah-gronn); }
+.steg__linje li:last-child { color: var(--ah-gronn); }
+.steg__tekst { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; margin-top: clamp(2rem, 4vw, 3.5rem); padding-top: 1.5rem; border-top: 1px solid var(--ah-line); }
+.steg__tekst h3 { font: 600 var(--ah-size-small)/1.4 var(--ah-font-body); letter-spacing: 0; color: var(--ah-gronn); margin-bottom: .4rem; }
+.steg__tekst p { color: var(--ah-text-muted); font-size: var(--ah-size-small); max-width: 30ch; }
+
+/* ---------- avslutning med kaffekopp ---------- */
+.avslutning { background: var(--ah-gronn); color: #fff; padding-block: clamp(3.5rem, 2.5rem + 5vw, 7.5rem); }
+.avslutning__indre { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 1.5rem 2rem; align-items: center; }
+.avslutning .kopp { width: clamp(6.5rem, 4rem + 11vw, 17rem); }
+.avslutning__tittel { font: 400 clamp(2rem, 1.3rem + 3vw, 4rem)/1.08 var(--ah-font-display); letter-spacing: -.035em; max-width: 18ch; }
+.avslutning p { color: rgb(255 255 255 / .82); font-size: var(--ah-size-lead); margin: 1rem 0 2rem; max-width: 42ch; }
+.avslutning__lenke { color: var(--ah-gronn-lys); }
+
+/* Kaffekoppen: SVG + CSS. Startbildet (uten JS eller ved redusert bevegelse) er full kopp med litt damp. */
+.kopp__strom, .kopp__kaffe, .kopp__damp path { transform-box: fill-box; }
+.kopp svg { display: block; width: 100%; height: auto; overflow: visible; }
+.kopp__form { fill: none; stroke: var(--ah-lys); stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
+.kopp__form:first-of-type { fill: rgb(255 255 255 / .06); }
+.kopp__kaffe, .kopp__strom { fill: var(--kaffe); }
+.kopp__glans { fill: rgb(255 255 255 / .16); }
+.kopp__strom { opacity: 0; }
+.kopp__damp path { fill: none; stroke: var(--ah-gronn-lys); stroke-width: 2; stroke-linecap: round; opacity: .75; }
+.kopp--liten { width: clamp(5rem, 3rem + 6vw, 8.5rem); flex: none; }
+.kopp--liten .kopp__form { stroke: var(--ah-gronn); }
+.kopp--liten .kopp__form:first-of-type { fill: rgb(31 90 71 / .04); }
+.kopp--liten .kopp__damp path { stroke: var(--ah-gronn); opacity: .5; }
+@media (prefers-reduced-motion: no-preference) {
+  .js .kopp__kaffe { transform: translateY(84px); }
+  .js .kopp__strom { opacity: 1; transform: translateY(-165px); }
+  .js .kopp__damp path { opacity: 0; }
+  .js .kopp.er-i-gang .kopp__strom { animation: strom 2.9s cubic-bezier(.45, 0, .25, 1) forwards; }
+  .js .kopp.er-i-gang .kopp__kaffe { animation: fyll 2.45s cubic-bezier(.3, .1, .25, 1) .3s forwards; }
+  .js .kopp.er-i-gang .kopp__damp path { animation: damp 2.2s cubic-bezier(.16, 1, .3, 1) calc(2.7s + var(--n, 0) * .3s) 1.5 forwards; }
+  .js .kopp--liten.er-i-gang .kopp__damp path { --topp: .5; }
+}
+@keyframes strom { 0% { transform: translateY(-165px); } 13% { transform: translateY(0); } 80% { transform: translateY(0); } 100% { transform: translateY(165px); } }
+@keyframes fyll { from { transform: translateY(84px); } to { transform: translateY(0); } }
+@keyframes damp {
+  0% { opacity: 0; transform: translateY(8px); }
+  50% { opacity: var(--topp, .75); transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ---------- undersider ---------- */
+.sidetopp, .kontakttopp { padding-block: clamp(2rem, 4vw, 3.5rem) clamp(2.5rem, 4vw, 4rem); }
+.sidetopp__tittel { font: 400 clamp(2.5rem, 1.4rem + 4.4vw, 5.5rem)/1.03 var(--ah-font-display); letter-spacing: -.04em; max-width: 16ch; }
+.sidetopp__ingress { font-size: var(--ah-size-lead); color: var(--ah-text-muted); max-width: 52ch; margin-top: 1.5rem; }
+.smule ol { display: flex; flex-wrap: wrap; gap: .25rem .5rem; font-size: var(--ah-size-small); color: var(--ah-text-muted); margin-bottom: 2rem; }
+.smule li:not(:last-child)::after { content: "/"; margin-left: .5rem; color: #B9BAB3; }
+.smule a { color: inherit; }
+
+.plassholder { display: grid; place-items: center; background: var(--ah-stein); color: var(--ah-text-muted); font-size: var(--ah-size-small); text-align: center; padding: 1rem; border: 1px dashed #C2C3BB; }
+.stripe__bilde { aspect-ratio: 21 / 8; }
+.storliste { border-top: 1px solid var(--ah-line); }
+.storliste li { font: 400 var(--indeks)/1.2 var(--ah-font-display); letter-spacing: -.025em; padding-block: 1.25rem; border-bottom: 1px solid var(--ah-line); }
+.detaljer { padding: 1.1rem 1.25rem; background: var(--ah-mose-lys); color: var(--ah-gronn); font-weight: 500; margin-bottom: 2rem; max-width: 52ch; }
+
+.bred img { width: 100%; aspect-ratio: 16 / 7; max-height: 80dvh; object-fit: cover; object-position: 50% 25%; }
+.plasstekst { padding: 1.1rem 1.25rem; background: var(--ah-stein); color: var(--ah-text-muted); border: 1px dashed #C2C3BB; max-width: 52ch; font-size: var(--ah-size-lead); }
+.adr { margin-top: 1.5rem; color: var(--ah-text-muted); }
+.kol__bilde { margin-top: 2.5rem; aspect-ratio: 16 / 9; }
+
+.kontakttopp__rad { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; }
+.kontakt { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 2.5rem 2rem; padding-bottom: var(--ah-seksjon); align-items: start; }
+.kontakt__liste { display: grid; gap: 1.5rem; padding-top: 1.75rem; border-top: 1px solid var(--ah-line); }
+.kontakt__liste dt { font-size: var(--ah-size-small); color: var(--ah-text-muted); }
+.kontakt__liste dd { font-size: 1.0625rem; margin-top: .15rem; }
+.kontakt__skjema { padding-top: 1.75rem; border-top: 1px solid var(--ah-text); }
+.skjema { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem 1.5rem; }
+.skjema .felt:nth-child(n+5) { grid-column: 1 / -1; }
+.felt { display: grid; gap: .4rem; align-content: start; }
+.felt label { font-weight: 600; font-size: var(--ah-size-small); }
+.valgfritt { font-weight: 400; color: var(--ah-text-muted); }
+.felt input, .felt select, .felt textarea { width: 100%; font: inherit; font-size: 1rem; color: var(--ah-text); background: var(--ah-hvit); border: 1px solid #C2C3BB; border-radius: 2px; padding: .85rem .9rem; transition: border-color .2s var(--ah-ease), box-shadow .2s var(--ah-ease); }
+.felt textarea { resize: vertical; min-height: 9rem; }
+.felt input::placeholder, .felt textarea::placeholder { color: #75766F; }
+.felt input:focus-visible, .felt select:focus-visible, .felt textarea:focus-visible { outline: none; border-color: var(--ah-gronn); box-shadow: 0 0 0 3px rgb(31 90 71 / .2); }
+.felt [aria-invalid="true"] { border-color: #A3312A; }
+.felt__feil { color: #A3312A; font-size: var(--ah-size-small); }
+.felt__feil:empty { display: none; }
+.skjema .knapp { grid-column: 1 / -1; justify-self: start; margin-top: .25rem; }
+.takk { padding: 1rem 0; }
+.takk:focus { outline: none; }
+.takk .h3 { color: var(--ah-gronn); margin-bottom: .75rem; }
+.takk p { color: var(--ah-text-muted); }
+
+/* ---------- bunn (Cereal-kolonner, stort ordmerke som Cultivating Leadership) ---------- */
+.bunn { background: var(--ah-blekk); color: rgb(255 255 255 / .75); padding-top: clamp(3.5rem, 5vw, 5rem); font-size: var(--ah-size-small); }
+.bunn__indre { display: grid; grid-template-columns: minmax(0, 3fr) repeat(4, minmax(0, 2.25fr)); gap: 2.5rem 2rem; padding-bottom: clamp(3rem, 6vw, 5rem); }
+.bunn__rolle { max-width: 24ch; color: #fff; }
+.bunn__tittel { font: 500 var(--ah-size-small)/1.4 var(--ah-font-body); color: rgb(255 255 255 / .5); letter-spacing: 0; margin-bottom: .9rem; }
+.bunn ul { display: grid; gap: .55rem; }
+.bunn a { color: rgb(255 255 255 / .82); text-decoration: none; }
+.bunn a:hover { color: #fff; text-decoration: underline; }
+.bunn__ordmerke { display: block; font: 400 min(10rem, 11.6vw)/.9 var(--ah-font-display); letter-spacing: -.05em; white-space: nowrap; color: #fff !important; padding-bottom: .12em; }
+.bunn__ordmerke:hover { text-decoration: none !important; color: var(--ah-gronn-lys) !important; }
+.bunn__linje { border-top: 1px solid rgb(255 255 255 / .12); padding-block: 1.5rem; color: rgb(255 255 255 / .55); }
+.demobaand { background: #2B2F2C; color: #E9EAE6; text-align: center; font-size: .8125rem; padding: .55rem 1rem; }
+
+/* ---------- inngang ved rulling ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js .vis { opacity: 0; transform: translateY(1.5rem); transition: opacity .9s var(--ah-ease), transform .9s var(--ah-ease); transition-delay: calc(var(--d, 0) * 90ms); }
+  .js .vis.er-synlig { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; transition-delay: 0s !important; }
+}
+
+/* ---------- nettbrett og mobil ---------- */
+@media (max-width: 960px) {
+  .topp__nav { display: none; }
+  .topp__meny { display: block; }
+  .steg__tekst { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+  .bunn__indre { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bunn__rolle { grid-column: 1 / -1; }
+}
+@media (max-width: 767px) {
+  .topp__handling .knapp--liten { display: none; }
+  .kol, .avslutning__indre, .kontakt, .omsitat__indre, .fold__innhold { grid-template-columns: minmax(0, 1fr); }
+  .kol { gap: 1rem; }
+  .hero { padding-top: 1.5rem; }
+  .hero__rad { display: grid; gap: 1.5rem; }
+  .hero__bilde img { aspect-ratio: 4 / 3; object-position: 48% 20%; }
+  .sit__rad { grid-template-columns: minmax(0, 1fr); gap: .6rem; padding-block: 1.25rem; }
+  .sit__tj { font-size: var(--ah-size-small); }
+  .sit__tj .knapp__pil { width: 1.9rem; height: 1.9rem; }
+  .indeks__rad { gap: 1rem; padding-block: 1.2rem; }
+  .indeks__navn span { display: block; font-size: 1.0625rem; letter-spacing: 0; font-family: var(--ah-font-body); margin-top: .35rem; }
+  .indeks__rad .knapp__pil, .fold__tegn { width: 2.1rem; height: 2.1rem; }
+  .omsitat__bilde img { aspect-ratio: 1; object-position: 50% 12%; }
+  .omsitat__tekst { gap: 2rem; }
+  .steg__tekst { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+  .steg__linje li:not(:last-child)::after { width: 1rem; margin-inline: .5rem; }
+  .avslutning__indre { gap: 1.25rem; }
+  .avslutning .kopp { width: 6.5rem; margin-left: -.4rem; }
+  .avslutning p { margin: .75rem 0 1.5rem; }
+  .punkter--to { grid-template-columns: minmax(0, 1fr); }
+  .stripe__bilde { aspect-ratio: 4 / 3; }
+  .bred img { aspect-ratio: 4 / 3; object-position: 48% 20%; }
+  .kontakttopp__rad { align-items: flex-start; }
+  .kontakttopp .kopp--liten { width: 4.5rem; margin-top: .5rem; }
+  .kontakttopp__rad { flex-direction: column-reverse; gap: 1rem; }
+  .skjema { grid-template-columns: minmax(0, 1fr); }
+  .knapper .knapp { flex: 0 0 auto; }
+}
+
+/* r3/r4: kundeutsagn på forsiden og «Book meg»-lenken på kontaktsiden (flyttet fra booking.css i r4) */
+.utsagn__liste { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); margin-top: 1.75rem; border-top: 1px solid var(--ah-line); padding-top: 2rem; }
+.utsagn__kort blockquote p { font: 400 clamp(1.25rem, 1.05rem + .8vw, 1.75rem)/1.28 var(--ah-font-display); letter-spacing: -.02em; color: var(--ah-text-muted); }
+.utsagn__kort figcaption { margin-top: 1.25rem; font-size: var(--ah-size-small); color: var(--ah-text-muted); display: grid; }
+.utsagn__kort figcaption span { color: var(--ah-text); font-weight: 600; }
+.utsagn__videre { margin-top: clamp(2.5rem, 5vw, 4rem); display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.25rem; font: 400 var(--ah-size-h3)/1.3 var(--ah-font-display); letter-spacing: -.01em; }
+.utsagn__videre .lenke-pil { font: 600 1.0625rem/1 var(--ah-font-body); letter-spacing: 0; }
+.omsitat__stor { font: 400 clamp(1.5rem, 1.1rem + 1.6vw, 2.5rem)/1.22 var(--ah-font-display); letter-spacing: -.025em; max-width: 24ch; margin-top: 1rem; }
+.kontakt__book { margin-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; color: var(--ah-text-muted); }
+@media (max-width: 960px) { .utsagn__liste { grid-template-columns: minmax(0, 1fr); gap: 2rem; } }
+.kom__merk { color: var(--ah-text-muted); font-size: var(--ah-size-small); margin: .75rem 0 1.5rem; }

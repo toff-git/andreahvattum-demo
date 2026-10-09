@@ -1,0 +1,159 @@
+/* Andrea Hvattum, demo r4: Andreas side (henvendelser uten fast tid: foreslå tid, bekreft, avslå/henvis).
+   Lastes etter booking.css og overstyrer adminreglene der. Samme formregel som resten:
+   flater, felt og ruter har rette hjørner; bare knapper er runde.
+   Bevegelse: fjær i andrea.js fra nåverdien; her bare trykk-respons og rolige overganger. */
+
+.adminside main { min-height: calc(100dvh - 7rem); }
+.adminside .topp__indre { grid-template-columns: minmax(0, 1fr) auto; }
+.adminside .topp__handling { grid-column: 2; gap: 1.25rem; }
+.admin__til { color: var(--ah-text-muted); font-weight: 500; font-size: var(--ah-size-small); }
+
+/* ---------- PIN ---------- */
+.pin { padding-block: clamp(3rem, 10vw, 7rem); max-width: 30rem; margin-inline: auto; }
+.pin__t { font: 400 clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem)/1.05 var(--ah-font-display); letter-spacing: -.035em; }
+.pin__ingress { color: var(--ah-text-muted); margin: .75rem 0 2rem; }
+.pin__skjema { display: grid; gap: 1.25rem; justify-items: start; }
+.pin__skjema .felt { width: 100%; max-width: 12rem; }
+.pin__skjema input { font-size: 1.5rem; letter-spacing: .4em; text-align: center; font-variant-numeric: tabular-nums; }
+.pin__demo { margin-top: 2rem; font-size: var(--ah-size-small); color: var(--ah-text-muted); padding: .6rem .8rem; background: var(--ah-stein); display: inline-block; }
+@keyframes rist { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.er-ristet .pin__skjema { animation: rist .35s cubic-bezier(.36, .07, .19, .97); }
+
+/* ---------- topp og faner ---------- */
+.admin { padding-block: clamp(2rem, 4vw, 3rem) var(--ah-seksjon); }
+.admin__t { font: 400 clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem)/1.05 var(--ah-font-display); letter-spacing: -.035em; outline: none; }
+.admin__ingress { color: var(--ah-text-muted); margin-top: .6rem; max-width: 60ch; }
+.faner { display: flex; gap: 1.75rem; border-bottom: 1px solid var(--ah-line); margin: 2rem 0 1.75rem; overflow-x: auto; scrollbar-width: none; }
+.faner [role="tab"] { flex: none; display: inline-flex; align-items: center; gap: .5rem; padding: .85rem 0; font: 500 1rem/1 var(--ah-font-body); color: var(--ah-text-muted); background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; touch-action: manipulation; transition: color .2s var(--ah-ease), border-color .3s var(--ah-ease); }
+.faner [role="tab"]:hover { color: var(--ah-text); }
+.faner [aria-selected="true"] { color: var(--ah-text); border-bottom-color: var(--ah-gronn); }
+.faner__ant { display: grid; place-items: center; min-width: 1.5rem; height: 1.5rem; padding: 0 .4rem; border-radius: 999px; background: var(--ah-gronn); color: #fff; font-size: .75rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.faner__ant:empty, .faner__ant[data-null] { background: var(--ah-stein); color: var(--ah-text-muted); }
+[role="tabpanel"]:focus-visible { outline-offset: 6px; }
+.panel__t { font: 600 var(--ah-size-small)/1.3 var(--ah-font-body); color: var(--ah-text-muted); margin: 0 0 1rem; }
+
+/* ---------- forespørsler ---------- */
+.saker { display: grid; gap: 1rem; }
+.sak { position: relative; background: var(--ah-hvit); border: 1px solid var(--ah-line); padding: clamp(1.15rem, 2.5vw, 1.9rem); display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 1.25rem 2.5rem; }
+/* Nye og tidligere kunder skilles på merket og på en strek i venstre kant */
+.sak::before { content: ""; position: absolute; left: -1px; top: -1px; bottom: -1px; width: 3px; background: var(--ah-gronn); }
+.sak--kjent::before { background: var(--ah-blekk); opacity: .28; }
+.sak__hode { display: grid; gap: .3rem; align-content: start; }
+.sak__tj { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .75rem; font-size: var(--ah-size-small); }
+.sak__tj b { font-weight: 600; color: var(--ah-gronn); }
+.sak__mottatt { color: var(--ah-text-muted); font-size: var(--ah-size-label); }
+.sak__nar { font: 400 clamp(1.375rem, 1.15rem + .9vw, 1.875rem)/1.2 var(--ah-font-display); letter-spacing: -.02em; margin-top: .2rem; }
+.sak__nar small { display: block; font: 500 var(--ah-size-label)/1.4 var(--ah-font-body); letter-spacing: 0; color: var(--ah-text-muted); margin-bottom: .15rem; }
+.sak__hvor { color: var(--ah-text-muted); }
+.sak__kunde { display: grid; gap: .15rem; align-content: start; padding-left: 1.5rem; border-left: 1px solid var(--ah-line); }
+.sak__navn { font-weight: 600; font-size: 1.0625rem; margin-top: .55rem; }
+.sak__firma { color: var(--ah-text); }
+.sak__kunde a { color: var(--ah-gronn); overflow-wrap: anywhere; font-size: var(--ah-size-small); text-underline-offset: .18em; }
+.sak__historikk { color: var(--ah-text-muted); font-size: var(--ah-size-label); margin-top: .35rem; }
+.kundemerke { justify-self: start; display: inline-flex; gap: .4rem; align-items: center; padding: .25rem .55rem; font-size: var(--ah-size-label); font-weight: 600; line-height: 1.3; }
+.kundemerke--ny { background: var(--ah-mose-lys); color: var(--ah-gronn); }
+.kundemerke--kjent { background: var(--ah-stein); color: var(--ah-text); }
+.merke { padding: .2rem .5rem; background: var(--ah-stein); font-size: var(--ah-size-label); color: var(--ah-text); }
+.merke--demo { background: transparent; box-shadow: inset 0 0 0 1px #C2C3BB; color: var(--ah-text-muted); font-weight: 400; }
+.sak__sitat { grid-column: 1 / -1; margin: 0; padding: 1rem 1.15rem; background: var(--ah-lys); max-width: none; }
+.sak__sitat p { max-width: 68ch; }
+.sak__sitat cite { display: block; font-style: normal; font-size: var(--ah-size-label); color: var(--ah-text-muted); margin-bottom: .3rem; }
+.sak__svar { grid-column: 1 / -1; padding: .8rem 1rem; box-shadow: inset 2px 0 0 var(--ah-gronn); background: var(--ah-mose-lys); font-size: var(--ah-size-small); }
+.sak__svar b { display: block; font-size: var(--ah-size-label); color: var(--ah-gronn); }
+.sak__bunn { grid-column: 1 / -1; display: grid; gap: .9rem; }
+.sak__melding summary { display: inline-flex; align-items: center; gap: .45rem; min-height: 2.5rem; cursor: pointer; color: var(--ah-gronn); font-weight: 500; font-size: var(--ah-size-small); list-style: none; touch-action: manipulation; }
+.sak__melding summary::-webkit-details-marker { display: none; }
+.sak__melding summary svg { transition: transform .3s var(--ah-ease); }
+.sak__melding[open] summary svg { transform: rotate(45deg); }
+.sak__melding .felt { margin-top: .4rem; max-width: 42rem; }
+.sak__melding textarea { min-height: 5.5rem; }
+.sak__knapper { display: flex; flex-wrap: wrap; gap: .5rem; }
+.sak:focus-within { border-color: #C2C3BB; }
+
+/* r4: navn som overskrift, foreslått/avtalt tid i egen linje */
+.saker__t { font: 600 var(--ah-size-small)/1.3 var(--ah-font-body); color: var(--ah-text-muted); margin: 1rem 0 0; }
+.saker__t:first-child { margin-top: 0; }
+.sak__nar span { display: block; font: 400 var(--ah-size-small)/1.4 var(--ah-font-body); letter-spacing: 0; color: var(--ah-text-muted); margin-top: .15rem; }
+.sak__tid { margin-top: .6rem; padding: .65rem .85rem; background: var(--ah-mose-lys); color: var(--ah-gronn); font-weight: 500; justify-self: start; }
+.sak__tid small { display: block; font-size: var(--ah-size-label); font-weight: 400; }
+.sak__tid--bekreftet { background: var(--ah-gronn); color: #fff; }
+.sak__tid--bekreftet small { color: var(--ah-gronn-lys); }
+.saker--kompakt .sak__tid { padding: .4rem .6rem; font-size: var(--ah-size-small); }
+
+/* kompakt: «Avtalt» og «Alle» */
+.saker--kompakt { gap: 0; border-top: 1px solid var(--ah-line); }
+.saker--kompakt .sak { border-width: 0 0 1px; padding: 1.1rem 0 1.1rem 1.1rem; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto; gap: .35rem 2rem; background: transparent; }
+.saker--kompakt .sak::before { top: 1.1rem; bottom: 1.1rem; left: 0; }
+.saker--kompakt .sak__nar { font-size: 1.1875rem; }
+.saker--kompakt .sak__kunde { border: 0; padding: 0; }
+.saker--kompakt .sak__navn { margin-top: 0; }
+.saker--kompakt .sak__sitat, .saker--kompakt .sak__svar { grid-column: 1 / 3; padding: .55rem .8rem; font-size: var(--ah-size-small); }
+.sak__status { align-self: start; justify-self: end; }
+#avtalt-liste .sak__sitat, #avtalt-liste .sak__historikk { display: none; }
+
+
+/* tomtilstander */
+.tomt { padding: clamp(2rem, 5vw, 3.5rem) 1.5rem; background: var(--ah-stein); text-align: center; color: var(--ah-text-muted); display: grid; justify-items: center; gap: .35rem; }
+.tomt .h3 { color: var(--ah-text); }
+.tomt p { max-width: 44ch; }
+.tomt .lenkeknapp { margin-top: .4rem; }
+.tomt--liten { padding: 1.25rem; text-align: left; justify-items: start; }
+
+/* ---------- alle ---------- */
+.filter { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.25rem; }
+.filter button { min-height: 2.5rem; padding: .4rem 1rem; border-radius: 999px; border: 0; background: transparent; box-shadow: inset 0 0 0 1px var(--ah-line); font: 500 var(--ah-size-small)/1 var(--ah-font-body); color: var(--ah-text); cursor: pointer; touch-action: manipulation; transition: background-color .2s var(--ah-ease), transform .2s var(--ah-ease); }
+.filter button:hover { box-shadow: inset 0 0 0 1px var(--ah-text); }
+.filter button:active { transform: scale(.97); }
+.filter button[aria-pressed="true"] { background: var(--ah-blekk); color: #fff; box-shadow: none; }
+.filter button span { color: inherit; opacity: .6; margin-left: .3rem; font-variant-numeric: tabular-nums; }
+.admin__fot { margin-top: 3rem; font-size: var(--ah-size-small); }
+.admin__fot .lenkeknapp { color: var(--ah-text-muted); font-weight: 400; }
+
+/* ---------- dialog (bunnark på mobil) ---------- */
+.dlg { border: 0; padding: 0; background: transparent; max-width: min(34rem, calc(100vw - 2rem)); width: 100%; overflow: visible; }
+.dlg::backdrop { background: rgb(23 32 28 / .42); }
+.dlg__flate { background: var(--ah-lys); padding: clamp(1.25rem, 3vw, 2rem); display: grid; gap: 1.1rem; box-shadow: 0 24px 60px rgb(23 32 28 / .2); will-change: transform; }
+.dlg__hva { color: var(--ah-text-muted); margin-top: -.6rem; }
+.dlg__tid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 1rem .75rem; }
+.dlg__hvor { grid-column: 1 / -1; }
+.dlg__tid[hidden] { display: none; }
+.dlg__greb { display: none; }
+.dlg .felt__feil:empty { display: none; }
+
+/* ---------- melding nederst ---------- */
+.toast { position: fixed; left: 50%; bottom: calc(1.25rem + env(safe-area-inset-bottom)); z-index: 50; display: flex; align-items: center; gap: 1.25rem; max-width: calc(100vw - 2rem); padding: .8rem .8rem .8rem 1.1rem; background: var(--ah-blekk); color: #fff; font-size: var(--ah-size-small); box-shadow: 0 12px 32px rgb(23 32 28 / .25); transform: translate3d(-50%, 150%, 0); opacity: 0; transition: transform .5s cubic-bezier(.32, .72, 0, 1), opacity .3s var(--ah-ease); }
+.toast.er-synlig { transform: translate3d(-50%, 0, 0); opacity: 1; }
+.toast__angre { flex: none; min-height: 2.5rem; padding: .4rem 1rem; border-radius: 999px; border: 0; background: rgb(255 255 255 / .12); color: var(--ah-gronn-lys); font: 600 var(--ah-size-small)/1 var(--ah-font-body); cursor: pointer; }
+.toast__angre:hover { background: rgb(255 255 255 / .2); }
+.toast__angre[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .toast { transition: opacity .2s ease; transform: translate3d(-50%, 0, 0); }
+  .sak__melding summary svg, .filter button { transition: none; }
+}
+
+/* ---------- PC smal og nettbrett ---------- */
+/* ---------- mobil ---------- */
+@media (max-width: 767px) {
+  .admin__til { display: none; }
+  .adminside .topp__handling .knapp--liten { display: inline-flex; }
+  .faner { gap: 1.4rem; margin-top: 1.5rem; }
+  .sak { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .sak__kunde { padding: .9rem 0 0; border-left: 0; border-top: 1px solid var(--ah-line); }
+  .sak__sitat { padding: .85rem 1rem; }
+  .sak__knapper { display: grid; grid-template-columns: 1fr 1fr; }
+  .sak__knapper .knapp { justify-content: center; padding-inline: .8rem; }
+  .sak__knapper .knapp--primar { grid-column: 1 / -1; min-height: 3rem; }
+  .saker--kompakt .sak { grid-template-columns: minmax(0, 1fr); padding-left: 1rem; }
+  .saker--kompakt .sak__status { position: absolute; top: 1.1rem; right: 0; }
+  .saker--kompakt .sak__tj { padding-right: 8.5rem; }
+  .sak__knapper .knapp--stille { grid-column: 1 / -1; }
+  .saker--kompakt .sak__kunde { display: none; }
+  .saker--kompakt .sak__sitat, .saker--kompakt .sak__svar { grid-column: 1 / -1; }
+  .dlg { max-width: 100vw; margin: auto 0 0; }
+  .dlg__flate { padding-top: .75rem; padding-bottom: calc(1.25rem + env(safe-area-inset-bottom)); max-height: 88dvh; overflow-y: auto; }
+  .dlg__greb { display: block; width: 2.5rem; height: 4px; border-radius: 2px; background: #C2C3BB; margin: 0 auto .25rem; }
+  .dlg .knapper { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .dlg .knapper .knapp { justify-content: center; }
+  .toast { width: calc(100vw - 2rem); justify-content: space-between; }
+}
